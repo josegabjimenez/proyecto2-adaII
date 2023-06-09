@@ -1,4 +1,5 @@
 import streamlit as st
+from datetime import timedelta
 from minizinc import Instance, Model, Solver
 import os
 
@@ -50,12 +51,15 @@ def main():
             # Crear una instancia del modelo con Gecode
             instance = Instance(gecode, cal_dep_model)
             # Resolver el modelo
-            result = instance.solve()
+            result = instance.solve(
+                intermediate_solutions=True, timeout=timedelta(minutes=7)
+            )
+
             # Mostrar la solución
-            st.write(f"Costo de viajes: {result.solution.objective}")
+            st.write(f"Costo de viajes: {result.solution[-1].objective}")
 
             st.write(f"Calendario:")
-            for row in result.solution.Cal:
+            for row in result.solution[-1].Cal:
                 st.write(f"{row}")
 
 
