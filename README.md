@@ -31,7 +31,7 @@ Esta aplicación permite generar calendarios deportivos dados unos respectivos p
 
 5. Instala las dependencias necesarias:
    ```
-   pip install -r requirements.txt
+   pip install -r ./CalDepGUIFuentes/requirements.txt
    ```
 
 ## Uso
