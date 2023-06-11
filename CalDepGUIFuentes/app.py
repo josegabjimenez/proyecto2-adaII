@@ -47,7 +47,7 @@ def main():
             # Asignar valores a los parámetros
             cal_dep_model.add_file(f"DatosCalDep/{output_filename}")
             # Seleccionar el solver Gecode
-            gecode = Solver.lookup("gecode")
+            gecode = Solver.lookup("chuffed")
             # Crear una instancia del modelo con Gecode
             instance = Instance(gecode, cal_dep_model)
             # Resolver el modelo
@@ -55,12 +55,18 @@ def main():
                 intermediate_solutions=True, timeout=timedelta(minutes=7)
             )
 
-            # Mostrar la solución
-            st.write(f"Costo de viajes: {result.solution[-1].objective}")
+            st.write(result.status)
 
-            st.write(f"Calendario:")
-            for row in result.solution[-1].Cal:
-                st.write(f"{row}")
+            # Si el problema es instatisfactible, mostrar mensaje, sino mostrar la solución
+            if result.solution == []:
+                st.error("No se encontró solución")
+            else:
+                # Mostrar la solución
+                st.write(f"Costo de viajes: {result.solution[-1].objective}")
+
+                st.write(f"Calendario:")
+                for row in result.solution[-1].Cal:
+                    st.write(f"{row}")
 
 
 if __name__ == "__main__":

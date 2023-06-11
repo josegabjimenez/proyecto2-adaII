@@ -15,7 +15,7 @@ Esta aplicación permite generar calendarios deportivos dados unos respectivos p
 3. Crea un entorno virtual:
 
    ```
-   python3 -m venv venv
+   python -m venv venv
    ```
 
 4. Activa el entorno virtual:
